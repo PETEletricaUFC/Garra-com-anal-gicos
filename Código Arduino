@@ -1,0 +1,45 @@
+#include <Servo.h>
+Servo Cintura; // Declaramos variável para controlar o Servo Cintura
+Servo Ombro; // Declaramos variável para controlar o Servo Ombro
+Servo Cotovelo; // Declaramos variável para controlar o Servo Cotovelo
+Servo Garra; // Declaramos variável para controlar o Servo Garra
+Int Graus_Cintura = 90; // Posição inicial do servo Cintura = 90 Graus
+Int Graus_Ombro = 160; // Posição inicial do servo Ombro = 20 Graus
+Int Graus_Cotovelo = 160; // Posição inicial do servo Cotovelo = 50 Graus
+Int Graus_Garra = 20; // Posição inicial do servo Garra = 0 Graus
+#define VRY_2 A0 // Definida entrada Y do Joystick 2 para entrada analógica A0
+#define VRX_2 A1 // Definida entrada X do Joystick 2 para entrada analógica A1
+#define VRY_1 A2 // Definida entrada Y do Joystick 1 para entrada analógica A2
+#define VRX_1 A3 // Definida entrada X do Joystick 1 para entrada analógica A3
+Void setup() {
+Cintura.attach(6); // Para controlar o servo Cintura definimos o pino digital 6
+Ombro.attach(9); // Para controlar o servo Ombro definimos o pino digital 9
+Cotovelo.attach(10); // Para controlar o servo Cotovelo definimos o pino digital 10
+Garra.attach(11); // Para controlar o servo Garra definimos o pino digital 11
+pinMode(VRY_1, INPUT); // Declaramos pino analógico A2 como entrada
+pinMode(VRX_1, INPUT); // Declaramos pino analógico A3 como entrada
+pinMode(VRY_2, INPUT); // Declaramos pino analógico A0 como entrada
+pinMode(VRX_2, INPUT); // Declaramos pino analógico A1 como entrada
+}
+Void loop() {
+Int LVRY_1 = analogRead(VRY_1); // Variável para armazenar leitura Y Joystick 1
+Int LVRX_1 = analogRead(VRX_1); // Variável para armazenar leitura X Joystick 1
+Int LVRY_2 = analogRead(VRY_2); // Variável para armazenar leitura Y Joystick 2
+Int LVRX_2 = analogRead(VRX_2); // Variável para armazenar leitura X Joystick 2
+If (LVRY_1 < 340) Graus_Cintura -= 1; // da leitura Y Joystick 1 for menor que 340 então diminua 1 grau do Servo Cintura
+Else if (LVRY_1 > 680) Graus_Cintura += 1; // da leitura Y Joystick 1 for maior que 680 então aumente 1 grau do Servo Cintura
+Graus_Cintura = min(175, max(0, Graus_Cintura)); // O Servo se movera desde 0 graus até o máximo 175 graus
+If (LVRX_1 < 340) Graus_Ombro -= 3;
+Else if (LVRX_1 > 680) Graus_Ombro += 3;
+Graus_Ombro = min(136, max(0, Graus_Ombro)); //0
+If (LVRX_1 < 340) Graus_Cotovelo -= 3;
+Else if (LVRX_1 > 680) Graus_Cotovelo += 3;
+Graus_Cotovelo = min(175, max(80, Graus_Cotovelo));
+If (LVRY_2 < 340) Graus_Garra -= 2;
+Else if (LVRY_2 > 680) Graus_Garra += 2;
+Graus_Garra = min(70, max(20, Graus_Garra));
+Cintura.write(Graus_Cintura); // O Servo Cintura definimos o valor da variável Graus_Cintura
+Ombro.write(Graus_Ombro); // O Servo Ombro definimos o valor da variável Graus_Ombro
+Cotovelo.write(Graus_Cotovelo); // O Servo Cotovelo definimos o valor da variável Graus_Cotovelo
+Garra.write(Graus_Garra); // O Servo Garra definimos o valor da variável Graus_Garra
+Delay(20); // Retardo de 20 milisegundos}
